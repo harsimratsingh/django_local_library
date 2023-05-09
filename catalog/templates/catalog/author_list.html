@@ -1,0 +1,16 @@
+{% extends 'catalog/base_generic.html' %}
+{% block content %}
+<h1>Authors list</h1>
+<ul>
+{% for author in author_list %}
+<li><a href="{{ author.get_absolute_url }}">{{author.last_name}} {{author.first_name}}</a>
+{% if perms.catalog.is_staff %}
+    - <a href="{% url 'catalog:author-update' author.id %}">edit</a>
+    - <a href="{% url 'catalog:author-delete' author.id %}">delete</a>
+{% endif %}
+</li>
+{% empty %}
+<p>No authors listed yet!</p>
+{% endfor %}
+</ul>
+{% endblock %}
